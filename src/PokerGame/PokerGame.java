@@ -12,8 +12,8 @@ public class PokerGame extends StateBasedGame {
     public static int SCREEN_WIDTH = 1280;
     public static int SCREEN_HEIGHT = 720;
     public static String GAME_NAME = "Poker Game";
-    public static int FPS = 60;
-    public static boolean VSYNC = true;
+    public static int FPS = 200;
+    public static boolean VSYNC = false;
 
     // Game modules
     public static AppGameContainer app;
