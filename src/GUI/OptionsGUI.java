@@ -22,6 +22,19 @@ public class OptionsGUI {
         }
     }
 
+    public boolean isClicked(String str){
+
+        for(Button b : buttons){
+            if(b.getLabel().equalsIgnoreCase(str)){
+                if(b.getClicked()){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     public void render(Graphics g){
         for(Button b : buttons){
             b.render(g);

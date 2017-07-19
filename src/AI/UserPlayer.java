@@ -3,6 +3,7 @@ package AI;
 import GUI.Button;
 import GUI.OptionsGUI;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.tests.SoundTest;
 
 public class UserPlayer extends Player {
 
@@ -22,10 +23,33 @@ public class UserPlayer extends Player {
         options.render(g);
     }
 
+    private void flop(){
+        System.out.println("Flop");
+    }
+
+    private void raise(){
+        System.out.println("Raise");
+    }
+
+    private void call(){
+        System.out.println("Call");
+    }
+
     @Override
     public void update() {
         super.update();
         options.update();
+
+        if(playersTurn){
+            if(options.isClicked("fold")){
+                flop();
+            }else if(options.isClicked("call")){
+                call();
+            }else if(options.isClicked("raise")){
+                raise();
+            }
+        }
+
     }
 
     @Override

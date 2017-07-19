@@ -3,6 +3,7 @@ package GUI;
 import PokerGame.PokerGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 
 public class Button {
 
@@ -11,6 +12,7 @@ public class Button {
     private Color normalColour;
     private Color mouseOverColour;
     private boolean hovering;
+    private boolean clicked;
 
     public Button(int x, int y, int width, int height, String str) {
         this.x = x;
@@ -29,10 +31,22 @@ public class Button {
 
         if(xx > x && xx < x + width && yy > y && yy < y + height){
             hovering = true;
+            if(PokerGame.app.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)){
+                clicked = true;
+            }else{
+                clicked = false;
+            }
         }else{
             hovering = false;
         }
+    }
 
+    public String getLabel(){
+        return label;
+    }
+
+    public boolean getClicked(){
+        return clicked;
     }
 
     public void render(Graphics g){
@@ -43,12 +57,10 @@ public class Button {
             g.setColor(mouseOverColour);
         }
 
-
         g.fillRect(x, y, width, height);
 
         int strW = PokerGame.app.getGraphics().getFont().getWidth(label);
         int strH = PokerGame.app.getGraphics().getFont().getHeight(label);
-
 
         g.setColor(Color.white);
         g.drawString(label,(x + width/2) - strW/2,(y + height/2) - strH / 2);
