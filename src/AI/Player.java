@@ -23,4 +23,12 @@ public abstract class Player {
 
     public void render(Graphics g){}
 
+
+    public void setPlayersTurn(boolean b){
+        playersTurn = b;
+    }
+
+    public boolean getPlayersTurn(){
+        return playersTurn;
+    }
 }

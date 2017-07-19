@@ -1,7 +1,5 @@
 package States;
 
-import Cards.Card;
-import Cards.CardPositions;
 import PokerGame.GameManager;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
