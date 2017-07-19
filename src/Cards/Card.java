@@ -1,8 +1,7 @@
 package Cards;
 
-import AI.Player;
+import AI.PlayerPosition;
 import PokerGame.PokerGame;
-import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
 
 public class Card {
@@ -15,6 +14,8 @@ public class Card {
     private int fontWidth;
     private Image img;
     private boolean render;
+    private boolean viewable;
+    private Image background;
 
 
     public Card(int suitNum, int number, int x, int y, boolean render) {
@@ -23,10 +24,11 @@ public class Card {
         this.number = number;
         this.x = x;
         this.y = y;
-        this.width = 95;
-        this.height = 135;
+        this.width = 75;
+        this.height = 105;
         getSuit();
     }
+
 
     // Gets the suit type from the parameter passed in.
     private void getSuit(){
@@ -42,10 +44,16 @@ public class Card {
 
         try {
             img = new Image(suit.getImageLocation());
+            background = new Image("Cards/res/background.png");
         } catch (SlickException e) {
             e.printStackTrace();
         }
     }
+
+    public void setViewable(boolean view){
+        viewable = view;
+    }
+
 
     // Gets the string to print on the screen for the card.
     public String getCardNumberString(){
@@ -67,27 +75,27 @@ public class Card {
         fontWidth = PokerGame.app.getGraphics().getFont().getWidth(getCardNumberString());
     }
 
-    // Renders the card to the screen.
-    public void render(Graphics g){
+    // Render the cards at specific locations.
+    public void renderAt(Graphics g, int xx, int yy){
 
-        if(render){
-            g.setColor(Color.white);
-            g.fillRoundRect(x, y, width, height, 7);
-
+        g.setColor(Color.white);
+        g.fillRoundRect(xx, yy, width, height, 7);
+        if(viewable){
             g.setColor(suit.getCardColour());
-            //TODO: Do this better!
-            // Draw center image
-            img.draw((x + width) - (int)(50 * 1.5) + 3, (y + height) - (50 * 2) + 10,50, 50);
 
             // Draw bottom right icon/number
-            g.rotate(x + width - fontWidth - 2, y + height - fontWidth - 2, -180);
-            g.drawString(getCardNumberString(), x + width - fontWidth - 7, y + height - fontWidth - 10);
-            img.draw(x + width - fontWidth - 9, y + height - fontWidth + 8, fontWidth + 6, fontWidth + 6);
+            g.rotate(xx + width - fontWidth - 2, yy + height - fontWidth - 2, -180);
+            g.drawString(getCardNumberString(), xx + width - fontWidth - 7, yy + height - fontWidth - 10);
+            img.draw(xx + width - fontWidth - 9, yy + height - fontWidth + 8, fontWidth + 6, fontWidth + 6);
 
             // Draw top left icon/number
-            g.rotate(x + width - fontWidth - 2, y + height - fontWidth - 2, +180);
-            g.drawString(getCardNumberString(), x + 6, y + 6);
-            img.draw(x + 4, y + 6 + fontWidth * 2 , fontWidth + 6, fontWidth + 6);
+            g.rotate(xx + width - fontWidth - 2, yy + height - fontWidth - 2, +180);
+            g.drawString(getCardNumberString(), xx + 6, yy + 6);
+            img.draw(xx + 4, yy + 6 + fontWidth * 2 , fontWidth + 6, fontWidth + 6);
+        }else{
+            background.draw(xx, yy, width, height);
         }
+
     }
+
 }

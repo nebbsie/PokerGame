@@ -18,18 +18,20 @@ public class Deck {
     // Creates a deck.
     private void setupDeck(){
         deck = new ArrayList<>();
-        int counter = 0;
 
         for(int d = 0; d < amount; d++){
             for(int y = 0; y < 4; y++){
                 for(int x = 1; x <= 13; x++){
                     deck.add(new Card(y, x, 0, 0, false));
-                    counter++;
-                    System.out.println(counter);
                 }
             }
         }
     }
+
+    public int getCardsLeft(){
+        return deck.size();
+    }
+
 
     // Returns a random card and removes from the deck.
     public Card takeCard(){

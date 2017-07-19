@@ -1,7 +1,7 @@
 package States;
 
 import Cards.Card;
-import Cards.Type;
+import Cards.CardPositions;
 import PokerGame.GameManager;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
@@ -11,10 +11,16 @@ public class GameState extends BasicGameState {
 
     private int state;
     private GameManager gm;
+    private Image background;
 
     public GameState(int state){
         this.state = state;
-        this.gm = new GameManager(3);
+        this.gm = new GameManager(2);
+        try {
+            background = new Image("Graphics/table.png");
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -24,11 +30,16 @@ public class GameState extends BasicGameState {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        g.setBackground(Color.green);
+        background.draw(0, 0);
+        gm.render(g);
+
+        g.setColor(Color.black);
+
     }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+        gm.update();
 
     }
 
