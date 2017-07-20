@@ -28,6 +28,10 @@ public class Deck {
         }
     }
 
+    public void burnCard(){
+        takeCard();
+    }
+
     public int getCardsLeft(){
         return deck.size();
     }

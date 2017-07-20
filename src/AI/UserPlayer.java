@@ -2,19 +2,17 @@ package AI;
 
 import GUI.Button;
 import GUI.OptionsGUI;
+import PokerGame.GameManager;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.tests.SoundTest;
 
 public class UserPlayer extends Player {
 
-    private int x, y;
     private Button b;
     private OptionsGUI options;
 
     public UserPlayer() {
-        super();
-        this.x = 555;
-        this.y = 560;
+        super(0, 555, 560);
+
         hand.setViewable(true);
         options = new OptionsGUI(500, 450);
     }
@@ -23,31 +21,44 @@ public class UserPlayer extends Player {
         options.render(g);
     }
 
-    private void flop(){
-        System.out.println("Flop");
+
+    @Override
+    protected void fold() {
+        super.fold();
+        hand.setViewable(false);
     }
 
-    private void raise(){
-        System.out.println("Raise");
+
+    @Override
+    protected void raise(double bet) {
+        super.raise(bet);
     }
 
-    private void call(){
-        System.out.println("Call");
+    @Override
+    protected void call() {
+        super.call();
     }
+
 
     @Override
     public void update() {
         super.update();
         options.update();
 
-        if(playersTurn){
+        if(GameManager.currentGo == playerID){
+
+            if(folded){
+
+            }
+
             if(options.isClicked("fold")){
-                flop();
+                fold();
             }else if(options.isClicked("call")){
                 call();
             }else if(options.isClicked("raise")){
-                raise();
+                raise(100);
             }
+
         }
 
     }
@@ -57,7 +68,7 @@ public class UserPlayer extends Player {
         super.render(g);
         hand.renderHand(g, x, y);
 
-        if(playersTurn){
+        if(GameManager.currentGo == playerID){
             drawButtons(g, 100, 100);
         }
     }
